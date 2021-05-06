@@ -1,0 +1,2 @@
+# templates
+Catpea Content Templates
