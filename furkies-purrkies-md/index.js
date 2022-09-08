@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import kebabCase from 'lodash/kebabCase.js';
 import startCase from 'lodash/startCase.js';
 import last from 'lodash/last.js';
@@ -25,12 +26,13 @@ async function main({destination}){
   const ix = JSON.parse((await readFile(path.join(destination, 'index.json'))).toString());
   const number = padStart(ix.data.length+1, 4, 0);
   const id = kebabCase([prefix, postfix, number].join(delimiter));
+  const guid = uuidv4();
   const title = startCase([prefix, postfix, number].join(delimiter));
   const image = kebabCase([postfix, number, 'illustration'].join(delimiter)) + '.jpg';
   const artwork = 'https://example.com';
   const audio = kebabCase([postfix, number].join(delimiter)) + '.mp3';
   const date = (new Date()).toISOString();
-  const configuration = { id, title, date, image, artwork, audio };
+  const configuration = { id, guid, title, date, image, artwork, audio };
 
   ix.data.push(id);
 

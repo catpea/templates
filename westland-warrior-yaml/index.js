@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import kebabCase from 'lodash/kebabCase.js';
 import startCase from 'lodash/startCase.js';
 import last from 'lodash/last.js';
@@ -20,17 +21,18 @@ export default main;
 async function main({destination, name}){
 
   if( (!name) || (!name.trim()) ) throw new Error('You must specify a name');
-  
+
   const ix = JSON.parse((await readFile(path.join(destination, 'index.json'))).toString());
   const prefix = 'westland-warrior';
   const delimiter = '-';
   const id = kebabCase([prefix, name].join(delimiter));
+  const guid = uuidv4();
   const title = startCase(name);
   const image = `warrior-${kebabCase(name)}-cover.jpg`;
   const artwork = null;
   const audio = null
   const date = (new Date()).toISOString();
-  const configuration = { id, title, date, image, artwork, audio };
+  const configuration = { id, guid, title, date, image, artwork, audio };
 
   ix.data.push(id);
 
